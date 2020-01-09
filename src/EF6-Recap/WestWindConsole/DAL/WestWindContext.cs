@@ -28,7 +28,7 @@ namespace WestWindConsole.DAL
         public DbSet<EmployeeTerritory> EmployeeTerritories { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
         public DbSet<Shipment> Shipments { get; set; }
-        //public DbSet<Address> Addresses { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         // TODO: Practice - Add entities and DbSet<> properties for the remaining tables
     }
