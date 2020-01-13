@@ -25,7 +25,7 @@ namespace WestWindConsole.Entities
         [Required]
         public int OrderID { get; set; }
         [Required]
-        public int TransactionID { get; set; }
+        public Guid TransactionID { get; set; }
         public DateTime ClearDate { get; set; }
     }
 }
