@@ -23,7 +23,7 @@ namespace WestWindConsole.Entities
         public string City { get; set; }
         [StringLength(15, ErrorMessage = "Region must be less than 15 characters")]
         public string Region { get; set; }
-        [StringLength(10, ErrorMessage = "Postal code must be less than 15 characters")]
+        [StringLength(10, ErrorMessage = "Postal code must be less than 10 characters")]
         public string PostalCode { get; set; }
         [Required, StringLength(15, ErrorMessage = "Country must be less than 15 characters")]
         public string Country { get; set; }
