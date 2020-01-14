@@ -42,5 +42,11 @@ namespace WestWindConsole.DAL
 
 
         // TODO: Practice - Add entities and DbSet<> properties for the remaining tables
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //The OnModeCreating method is where mapping information between the entities and the actual database can be done in addition to or in place of the mapping that happens via attributes on the Entity class members. It's a place for more complex data modeling of the database tables / entities.
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

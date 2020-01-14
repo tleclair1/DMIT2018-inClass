@@ -247,6 +247,17 @@ namespace WestWindConsole
                 int count = context.Regions.Count();
                 // $ - String Interpolation
                 Console.WriteLine($"There are {count} regions");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+
+                var data = context.Regions.Include(nameof(Region.Territories));
+                foreach (var item in data)
+                {
+                    Console.WriteLine($"\tRegion {item.RegionID} has {item.Territories.Count()} territories");
+                }
+                Console.ResetColor();
+
+
+
             }
         }
 

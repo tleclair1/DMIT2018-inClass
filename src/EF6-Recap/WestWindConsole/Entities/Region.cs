@@ -18,5 +18,8 @@ namespace WestWindConsole.Entities
         public int RegionID { get; set; }
         [Required, StringLength(50, ErrorMessage = "Region Description must be less than 50 characters")]
         public string RegionDescription { get; set; }
+
+        public virtual ICollection<Territory> Territories { get; set; } =
+            new HashSet<Territory>();
     }
 }
