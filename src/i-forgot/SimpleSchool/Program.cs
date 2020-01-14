@@ -13,6 +13,11 @@ namespace SimpleSchool
     {
         static void Main(string[] args)
         {
+            using (var context = new SchoolContext())
+            {
+                int count = context.Courses.Count();
+                Console.WriteLine($"There are {count} courses");
+            }
         }
     }
     public class SchoolContext : DbContext
@@ -27,10 +32,11 @@ namespace SimpleSchool
     public class Course
     {
         public int CourseID { get; set; } // EF will accept this as a PK, by its default convention
-        [StringLength(10)]
+        [Required, StringLength(10)]
         public string CatalogNumber { get; set; }
-        [StringLength(82)]
+        [Required, StringLength(82)]
         public string Name { get; set; }
         public int Hours { get; set; }
+        public double Credits { get; set; }
     }
 }
