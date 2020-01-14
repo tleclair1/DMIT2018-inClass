@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChinookSystem.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,10 +14,26 @@ namespace SimpleSchool
     {
         static void Main(string[] args)
         {
-            using (var context = new SchoolContext())
+            DisplayAlbums();
+            //using (var context = new SchoolContext())
+            //{
+            //    int count = context.Courses.Count();
+            //    Console.WriteLine($"There are {count} courses");
+            //}
+        }
+
+        private static void DisplayAlbums()
+        {
+            using (var context = new ChinookContext())
             {
-                int count = context.Courses.Count();
-                Console.WriteLine($"There are {count} courses");
+                foreach (var performer in context.Artists)
+                {
+                    Console.WriteLine($"Albums by {performer.Name}");
+                    foreach (var record in performer.Albums)
+                    {
+                        Console.WriteLine($"\t- {record.Title}");
+                    }
+                }
             }
         }
     }

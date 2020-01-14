@@ -22,7 +22,7 @@ namespace ChinookSystem.Entities
 
         public int ArtistId { get; set; }
 
-        public int ReleaseYear { get; set; }
+        public int ReleaseYear { get; set; } = DateTime.Now.Year; // Mimick a DEFAULT constraint
 
         [StringLength(50)]
         public string ReleaseLabel { get; set; }
