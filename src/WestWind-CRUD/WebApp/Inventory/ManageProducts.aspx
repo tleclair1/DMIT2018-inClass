@@ -21,7 +21,15 @@
                         </EditItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:BoundField DataField="CategoryID" HeaderText="Category" SortExpression="CategoryID"></asp:BoundField>
+                    <asp:TemplateField HeaderText="Category">
+                        <ItemTemplate>
+                            <asp:DropDownList ID="CategoryDropDown" runat="server" SelectedValue='<%# Eval("CategoryID") %>' DataSourceID="CategoryDataSource" DataTextField="CategoryName" DataValueField="CategoryID"></asp:DropDownList>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:DropDownList ID="CategoryDropDownl" runat="server" SelectedValue='<%# Bind("CategoryID") %>' DataSourceID="CategoryDataSource" DataTextField="CategoryName" DataValueField="CategoryID"></asp:DropDownList>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:BoundField DataField="QuantityPerUnit" HeaderText="Qty/Unit" SortExpression="QuantityPerUnit"></asp:BoundField>
                     <asp:BoundField DataField="MinimumOrderQuantity" HeaderText="Min Order" SortExpression="MinimumOrderQuantity"></asp:BoundField>
                     <asp:BoundField DataField="UnitPrice" HeaderText="Unit Price" SortExpression="UnitPrice" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"></asp:BoundField>
@@ -31,6 +39,7 @@
             </asp:GridView>
             <asp:ObjectDataSource runat="server" ID="ProductInventoryDataSource" OldValuesParameterFormatString="original_{0}" OnDeleted="ProductInventoryDataSource_Deleted" OnDeleting="ProductInventoryDataSource_Deleting" SelectMethod="ListAllProducts" TypeName="WestWindSystem.BLL.InventoryController" DataObjectTypeName="WestWindSystem.Entities.Product" DeleteMethod="DeleteProduct" UpdateMethod="UpdateProducts" />
             <asp:ObjectDataSource ID="SupplierDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListAllSuppliers" TypeName="WestWindSystem.BLL.InventoryController"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="CategoryDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListAllCategories" TypeName="WestWindSystem.BLL.InventoryController"></asp:ObjectDataSource>
         </div>
     </div>
 </asp:Content>

@@ -23,6 +23,17 @@ namespace WestWindSystem.BLL
         }
         #endregion
 
+        #region Category CRUD
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<Category> ListAllCategories()
+        {
+            using (var context = new WestWindContext())
+            {
+                return context.Categories.ToList();
+            }
+        }
+        #endregion
+
         #region Products CRUD
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Product> ListAllProducts()
