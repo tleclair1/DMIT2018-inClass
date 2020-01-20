@@ -1,10 +1,14 @@
 ﻿<%@ Page Title="Product Manager" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="WebApp.Inventory.ManageProducts" %>
+
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">Manage Products</h1>
         </div>
         <div class="col-md-12">
+            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
             <asp:label ID="MessageLabel" runat="server"></asp:label>
             <asp:GridView runat="server" ID="ProductInventoryGridView" DataSourceID="ProductInventoryDataSource" AutoGenerateColumns="False" CssClass="table table-hover table-condensed" DataKeyNames="ProductID">
                 <Columns>
@@ -37,7 +41,7 @@
                     <asp:CheckBoxField DataField="Discontinued" HeaderText="Discontinued" SortExpression="Discontinued" ItemStyle-HorizontalAlign="Center"></asp:CheckBoxField>
                 </Columns>
             </asp:GridView>
-            <asp:ObjectDataSource runat="server" ID="ProductInventoryDataSource" OldValuesParameterFormatString="original_{0}" OnDeleted="ProductInventoryDataSource_Deleted" OnDeleting="ProductInventoryDataSource_Deleting" SelectMethod="ListAllProducts" TypeName="WestWindSystem.BLL.InventoryController" DataObjectTypeName="WestWindSystem.Entities.Product" DeleteMethod="DeleteProduct" UpdateMethod="UpdateProducts" />
+            <asp:ObjectDataSource runat="server" ID="ProductInventoryDataSource" OldValuesParameterFormatString="original_{0}" OnDeleted="HandleExceptions" OnUpdated="HandleExceptions" SelectMethod="ListAllProducts" TypeName="WestWindSystem.BLL.InventoryController" DataObjectTypeName="WestWindSystem.Entities.Product" DeleteMethod="DeleteProduct" UpdateMethod="UpdateProducts" />
             <asp:ObjectDataSource ID="SupplierDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListAllSuppliers" TypeName="WestWindSystem.BLL.InventoryController"></asp:ObjectDataSource>
             <asp:ObjectDataSource ID="CategoryDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListAllCategories" TypeName="WestWindSystem.BLL.InventoryController"></asp:ObjectDataSource>
         </div>
