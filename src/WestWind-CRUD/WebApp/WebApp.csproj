@@ -132,6 +132,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Inventory\ManageInventory.aspx" />
     <Content Include="Inventory\ManageProducts.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -195,6 +196,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\ManageInventory.aspx.cs">
+      <DependentUpon>ManageInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\ManageInventory.aspx.designer.cs">
+      <DependentUpon>ManageInventory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inventory\ManageProducts.aspx.cs">
       <DependentUpon>ManageProducts.aspx</DependentUpon>

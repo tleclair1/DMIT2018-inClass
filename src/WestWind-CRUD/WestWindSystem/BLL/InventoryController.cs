@@ -42,11 +42,21 @@ namespace WestWindSystem.BLL
             {
                 // Get the Product information along with the supplier and category information for each Product
                 return context.Products.Include(nameof(Product.Supplier)).Include(nameof(Product.Category)).ToList();
+            }// Exiting the using block will "dispose" of the context object
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert)]
+        public void InsertProduct(Product info)
+        {
+            using (var context = new WestWindContext())
+            {
+                context.Products.Add(info);
+                context.SaveChanges();
             }
         }
 
         [DataObjectMethod(DataObjectMethodType.Update)]
-        public void UpdateProducts(Product info)
+        public void UpdateProduct(Product info)
         {
             using (var context = new WestWindContext())
             {
