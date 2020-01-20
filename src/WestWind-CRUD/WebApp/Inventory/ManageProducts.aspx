@@ -10,15 +10,14 @@
         <div class="col-md-12">
             <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
             <asp:label ID="MessageLabel" runat="server"></asp:label>
-            <asp:GridView runat="server" ID="ProductInventoryGridView" DataSourceID="ProductInventoryDataSource" AutoGenerateColumns="False" CssClass="table table-hover table-condensed" DataKeyNames="ProductID">
+            <asp:GridView runat="server" ID="ProductInventoryGridView" DataSourceID="ProductInventoryDataSource" AutoGenerateColumns="False" CssClass="table table-hover table-condensed" DataKeyNames="ProductID" ItemType="WestWindSystem.Entities.Product">
                 <Columns>
                     <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"></asp:CommandField>
                     <asp:BoundField DataField="ProductName" HeaderText="Name" SortExpression="ProductName"></asp:BoundField>
 
-
                     <asp:TemplateField HeaderText="Supplier">
                         <ItemTemplate>
-                            <asp:DropDownList ID="SupplierDropDown" runat="server" DataSourceID="SupplierDataSource" DataTextField="CompanyName" DataValueField="SupplierID" SelectedValue='<%# Eval("SupplierID") %>'></asp:DropDownList>
+                            <%# Item.Supplier.CompanyName %>
                         </ItemTemplate>
                         <EditItemTemplate>
                             <asp:DropDownList ID="SupplierDropDown" runat="server" DataSourceID="SupplierDataSource" DataTextField="CompanyName" DataValueField="SupplierID" SelectedValue='<%# Bind("SupplierID") %>'></asp:DropDownList>
@@ -27,7 +26,7 @@
 
                     <asp:TemplateField HeaderText="Category">
                         <ItemTemplate>
-                            <asp:DropDownList ID="CategoryDropDown" runat="server" SelectedValue='<%# Eval("CategoryID") %>' DataSourceID="CategoryDataSource" DataTextField="CategoryName" DataValueField="CategoryID"></asp:DropDownList>
+                            <%# Item.Category.CategoryName %>
                         </ItemTemplate>
                         <EditItemTemplate>
                             <asp:DropDownList ID="CategoryDropDownl" runat="server" SelectedValue='<%# Bind("CategoryID") %>' DataSourceID="CategoryDataSource" DataTextField="CategoryName" DataValueField="CategoryID"></asp:DropDownList>
