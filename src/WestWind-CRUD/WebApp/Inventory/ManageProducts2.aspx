@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Inventory Manager" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageInventory.aspx.cs" Inherits="WebApp.Inventory.ManageInventory" %>
+﻿<%@ Page Title="Inventory Manager" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageProducts2.aspx.cs" Inherits="WebApp.Inventory.ManageInventory" %>
 
 <%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
 
