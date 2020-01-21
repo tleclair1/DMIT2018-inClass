@@ -26,15 +26,11 @@
             <h2>Inventory</h2>
             <asp:GridView ID="ProductsGridView" runat="server" AutoGenerateColumns="False" DataSourceID="ProductsDataSource" CssClass="table table-hover table-condensed">
                 <Columns>
-                    <asp:BoundField DataField="ProductID" HeaderText="ID" SortExpression="ProductID"></asp:BoundField>
-                    <asp:BoundField DataField="ProductName" HeaderText="Product" SortExpression="ProductName"></asp:BoundField>
-                    <asp:BoundField DataField="SupplierID" HeaderText="SupplierID" SortExpression="SupplierID"></asp:BoundField>
-                    <asp:BoundField DataField="CategoryID" HeaderText="CategoryID" SortExpression="CategoryID"></asp:BoundField>
-                    <asp:BoundField DataField="QuantityPerUnit" HeaderText="Qty/Unit" SortExpression="QuantityPerUnit"></asp:BoundField>
-                    <asp:BoundField DataField="MinimumOrderQuantity" HeaderText="Min. Order" SortExpression="MinimumOrderQuantity"></asp:BoundField>
-                    <asp:BoundField DataField="UnitPrice" HeaderText="Unit Price" SortExpression="UnitPrice" DataFormatString="{0:C}"></asp:BoundField>
-                    <asp:BoundField DataField="UnitsOnOrder" HeaderText="Units On Order" SortExpression="UnitsOnOrder"></asp:BoundField>
-                    <asp:CheckBoxField DataField="Discontinued" HeaderText="Disc." SortExpression="Discontinued"></asp:CheckBoxField>
+                    <asp:BoundField DataField="ProductName" HeaderText="ProductName" SortExpression="Product"></asp:BoundField>
+                    <asp:BoundField DataField="Supplier" HeaderText="Supplier" SortExpression="Supplier"></asp:BoundField>
+                    <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category"></asp:BoundField>
+                    <asp:BoundField DataField="SellingPrice" DataFormatString="{0:C}" HeaderText="Selling Price" SortExpression="SellingPrice"></asp:BoundField>
+                    <asp:BoundField DataField="QuantityPerUnit" HeaderText="QuantityPerUnit" SortExpression="Qty/Unit"></asp:BoundField>
                 </Columns>
             </asp:GridView>
             <asp:ObjectDataSource ID="ProductsDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListProductsBySupplier" TypeName="WestWindSystem.BLL.InventoryController">
