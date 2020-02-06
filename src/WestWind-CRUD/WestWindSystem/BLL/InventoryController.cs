@@ -14,6 +14,7 @@ namespace WestWindSystem.BLL
     public class InventoryController
     {
         #region Supplier CRUD
+        
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Supplier> ListAllSuppliers()
         {
@@ -36,6 +37,30 @@ namespace WestWindSystem.BLL
         #endregion
 
         #region Products - Queries
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<CategorizedProducts> ListProductsByCategory()
+        {
+            using (var context = new WestWindContext())
+            {
+                //LinqPad code paste here
+                var result = from data in context.Categories
+                             select new CategorizedProducts
+                             {
+                                 Name = data.CategoryName,
+                                 Description = data.Description,
+                                 Picture = data.Picture,
+                                 Products = from item in data.Products
+                                            select new ProductInfo
+                                            {
+                                                Name = item.ProductName,
+                                                QuantityPerUnit = item.QuantityPerUnit,
+                                                Price = item.UnitPrice
+                                            }
+                             };
+                return result.ToList();
+            }
+        }
+
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<ProductSummary> ListProductsBySupplier(int supplierid)
         {
