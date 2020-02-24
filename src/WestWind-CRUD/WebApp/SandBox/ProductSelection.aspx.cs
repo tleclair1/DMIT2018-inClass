@@ -31,7 +31,14 @@ namespace WebApp.SandBox
 
         protected void SourceProductsGridView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MessageUserControl.ShowInfo($"the item at index {SourceProductsGridView.SelectedIndex} was selected");
+            string message = $"the item at index {SourceProductsGridView.SelectedIndex} was selected";
+            GridViewRow row = SourceProductsGridView.Rows[SourceProductsGridView.SelectedIndex];
+            Label name = row.FindControl("ProductName") as Label;
+            if (name != null)
+            {
+                message += $"The product name is {name.Text}";
+            }
+            MessageUserControl.ShowInfo(message);
         }
     }
 }

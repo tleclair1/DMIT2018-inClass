@@ -15,7 +15,7 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Name" >
                         <ItemTemplate>
-                            <%# Item.Name %>
+                            <asp:Label id="ProductName" Text="<%# Item.Name %>" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Qty/Unit" >
