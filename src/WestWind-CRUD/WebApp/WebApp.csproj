@@ -136,6 +136,7 @@
     <Content Include="Inventory\ManageProducts.aspx" />
     <Content Include="Inventory\ProductsByCategory.aspx" />
     <Content Include="Inventory\SearchInventory.aspx" />
+    <Content Include="SandBox\OrderShipping.aspx" />
     <Content Include="SandBox\ProductSelection.aspx" />
     <Content Include="SandBox\ProductSelection2.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -230,6 +231,13 @@
       <DependentUpon>SearchInventory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SandBox\OrderShipping.aspx.cs">
+      <DependentUpon>OrderShipping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SandBox\OrderShipping.aspx.designer.cs">
+      <DependentUpon>OrderShipping.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SandBox\ProductSelection.aspx.cs">
       <DependentUpon>ProductSelection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
