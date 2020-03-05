@@ -30,6 +30,11 @@ namespace WestWindSystem.BLL
         #endregion
 
         #region Command Methods
+        public void ShipOrder(int orderID, ShippingDirections directions, List<ProductShipment> items)
+        {
+            // TODO: Implement ShipOrder
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }
