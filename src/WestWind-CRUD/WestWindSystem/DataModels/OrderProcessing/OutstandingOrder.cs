@@ -10,7 +10,7 @@ namespace WestWindSystem.DataModels.OrderProcessing
         public DateTime OrderedDate { get; set; }
         public DateTime RequiredDate { get; set; }
         public int DaysToDelivery { get { return (RequiredDate - OrderedDate).Days; } }
-        public List<ProductSummary> OutstandingItems { get; set; }
+        public IEnumerable<ProductSummary> OutstandingItems { get; set; }
         public string Comments { get; set; }
         public string FullShippingAddress { get; set; }
     }
