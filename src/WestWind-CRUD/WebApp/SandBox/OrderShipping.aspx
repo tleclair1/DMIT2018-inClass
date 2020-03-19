@@ -12,7 +12,7 @@
 
             <asp:ListView ID="ShipmentsListView" runat="server"
                 DataSourceID="OutstandingOrderDataSource"
-                ItemType="WestWindSystem.DataModels.OrderProcessing.OutstandingOrder">
+                ItemType="WestWindSystem.DataModels.OrderProcessing.OutstandingOrder" OnItemCommand="ShipmentsListView_ItemCommand">
                 <LayoutTemplate>
                     <table runat="server" id="itemPlaceholderContainer" class="table table-hover">
                         <tr runat="server">

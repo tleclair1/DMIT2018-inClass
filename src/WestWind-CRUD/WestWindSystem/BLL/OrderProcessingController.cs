@@ -105,15 +105,47 @@ namespace WestWindSystem.BLL
         #region Command Methods
         public void ShipOrder(int orderID, ShippingDirections directions, List<ProductShipment> items)
         {
-            // TODO: Implement ShipOrder - Validation of input:
-            //      OrderID must exist
-            //      Shipper must exist
-            //      Must have one or more items to ship
-            //      ProductIDs must exist and be valid
-            //      Quantities must be greater than 0 and less than the number / qty outstanding on the order
-            //      Freight cahrge is either null or a value greater than 0
-            // TODO: Add a new Shipment to the database
-            // TODO: Add new ManifestItem objects to the new shipment
+            if (directions == null) throw new ArgumentNullException("No shipping directions provided.");
+            if (items == null) throw new ArgumentNullException("No shipment items were provided.");
+            using (var context = new WestWindContext())
+            {
+                // TODO: Implement ShipOrder - Validation of input:
+                //      OrderID must exist
+                var existingOrder = context.Orders.Find(orderID);
+                if (existingOrder == null)
+                    throw new Exception("Order does not exist");
+                if (existingOrder.Shipped)
+                    throw new Exception("This order has already been completed.");
+                if (!existingOrder.OrderDate.HasValue)
+                    throw new Exception("This order is not ready to be shipped (no order date has been specified).");
+
+                //      Shipper must exist
+                var shipper = context.Shippers.Find(directions.ShipperID);
+                if (shipper == null)
+                    throw new Exception("Invalid shipper ID.");
+
+                //      Freight cahrge is either null or a value greater than 0
+                if (directions.FreightCharge.HasValue && directions.FreightCharge <= 0)
+                    throw new Exception("Freight charge must be either a positive value or no charge");
+
+                //      Must have one or more items to ship
+                if (!items.Any())
+                    throw new Exception("No products identified for shipping.");
+
+                foreach (var item in items)
+                {
+                    if (item == null) throw new Exception("Blank item listed in the products to be shipped.");
+                    //      ProductIDs must exist and be valid
+                    if (!existingOrder.OrderDetails.Any(x => x.ProductID == item.ProductID))
+                        throw new Exception($"The product {item.ProductID} does not exist on the order.");
+                    //      Quantities must be greater than 0 and less than the number / qty outstanding on the order
+                }
+                
+                
+                // TODO: Add a new Shipment to the database
+                // TODO: Add new ManifestItem objects to the new shipment
+            }
+            
             throw new NotImplementedException();
         }
         #endregion
