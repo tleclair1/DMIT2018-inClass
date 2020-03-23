@@ -71,7 +71,7 @@
                     <tr>
                         <td colspan="4">
                             <asp:Label ID="OrderComments" runat="server" Text="<%# Item.Comments %>" />
-                            <asp:DropDownList ID="ShipperDropDown" runat="server" DataSourceID="ShipperDataSource" DataTextField="Name" DataValueField="ShipperID" AppendDataBoundItems="true">
+                            <asp:DropDownList ID="ShipperDropDown" runat="server" CssClass="form-control" DataSourceID="ShipperDataSource" DataTextField="Name" DataValueField="ShipperID" AppendDataBoundItems="true">
                                 <asp:ListItem Value="0">[Select a Shipper]</asp:ListItem>
                             </asp:DropDownList>
 
@@ -88,6 +88,7 @@
                                     <asp:TemplateField HeaderText="Ship Quantity">
                                         <ItemTemplate>
                                             <asp:HiddenField ID="ProductID" runat="server" Value="<%# Item.ProductID %>" />
+                                            <asp:TextBox ID="ShipQuantity" runat="server"/>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

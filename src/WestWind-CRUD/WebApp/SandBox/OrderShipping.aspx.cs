@@ -49,13 +49,13 @@ namespace WebApp.SandBox
                     }
 
                     List<ProductShipment> goods = new List<ProductShipment>();
-                    GridView gv = e.Item.FindControl("") as GridView;
+                    GridView gv = e.Item.FindControl("ProductsGridView") as GridView;
                     if (gv != null)
                     {
                         foreach (GridViewRow row in gv.Rows)
                         {
                             HiddenField prodId = row.FindControl("ProductId") as HiddenField;
-                            TextBox qty = row.FindControl("SjipQuantity") as TextBox;
+                            TextBox qty = row.FindControl("ShipQuantity") as TextBox;
                             short quantity;
                             if (prodId != null && qty != null && short.TryParse(qty.Text, out quantity))
                             {

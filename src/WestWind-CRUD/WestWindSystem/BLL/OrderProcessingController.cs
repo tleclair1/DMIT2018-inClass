@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WestWindSystem.DAL;
 using WestWindSystem.DataModels.OrderProcessing;
+using WestWindSystem.Entities;
 
 namespace WestWindSystem.BLL
 {
@@ -106,44 +107,85 @@ namespace WestWindSystem.BLL
         public void ShipOrder(int orderID, ShippingDirections directions, List<ProductShipment> items)
         {
             if (directions == null) throw new ArgumentNullException("No shipping directions provided.");
+
             if (items == null) throw new ArgumentNullException("No shipment items were provided.");
+
             using (var context = new WestWindContext())
             {
                 // TODO: Implement ShipOrder - Validation of input:
                 //      OrderID must exist
+                var violations = new List<Exception>();
+
                 var existingOrder = context.Orders.Find(orderID);
                 if (existingOrder == null)
-                    throw new Exception("Order does not exist");
-                if (existingOrder.Shipped)
-                    throw new Exception("This order has already been completed.");
-                if (!existingOrder.OrderDate.HasValue)
-                    throw new Exception("This order is not ready to be shipped (no order date has been specified).");
+                    violations.Add(new Exception("Order does not exist"));
+                else
+                {
+                    if (existingOrder.Shipped)
+                        violations.Add(new Exception("This order has already been completed."));
+                    if (!existingOrder.OrderDate.HasValue)
+                        violations.Add(new Exception("This order is not ready to be shipped (no order date has been specified)."));
+                }
 
                 //      Shipper must exist
                 var shipper = context.Shippers.Find(directions.ShipperID);
                 if (shipper == null)
-                    throw new Exception("Invalid shipper ID.");
+                    violations.Add(new Exception("Invalid shipper ID."));
 
                 //      Freight cahrge is either null or a value greater than 0
                 if (directions.FreightCharge.HasValue && directions.FreightCharge <= 0)
-                    throw new Exception("Freight charge must be either a positive value or no charge");
+                    violations.Add(new Exception("Freight charge must be either a positive value or no charge"));
 
                 //      Must have one or more items to ship
                 if (!items.Any())
-                    throw new Exception("No products identified for shipping.");
+                    violations.Add(new Exception("No products identified for shipping."));
 
                 foreach (var item in items)
                 {
-                    if (item == null) throw new Exception("Blank item listed in the products to be shipped.");
-                    //      ProductIDs must exist and be valid
-                    if (!existingOrder.OrderDetails.Any(x => x.ProductID == item.ProductID))
-                        throw new Exception($"The product {item.ProductID} does not exist on the order.");
-                    //      Quantities must be greater than 0 and less than the number / qty outstanding on the order
+                    if (item == null) 
+                        violations.Add(new Exception("Blank item listed in the products to be shipped."));
+                    else
+                    {
+                        //      ProductIDs must exist and be valid
+                        if (!existingOrder.OrderDetails.Any(x => x.ProductID == item.ProductID))
+                            violations.Add(new Exception($"The product {item.ProductID} does not exist on the order."));
+                        //      Quantities must be greater than 0 and less than the number / qty outstanding on the order
+                    }
                 }
-                
-                
+
+                if (violations.Any())
+                {
+                    throw new BusinessRuleException(nameof(ShipOrder), violations);
+                }
+
                 // TODO: Add a new Shipment to the database
+                var ship = new Shipment
+                {
+                    OrderID = orderID,
+                    ShipVia = directions.ShipperID,
+                    TrackingCode = directions.TrackingCode,
+                    FreightCharge = directions.FreightCharge.HasValue ? directions.FreightCharge.Value : 0,
+                    ShippedDate = DateTime.Now
+                };
+
                 // TODO: Add new ManifestItem objects to the new shipment
+                foreach (var item in items)
+                {
+                    ship.ManifestItems.Add(new ManifestItem
+                    {
+                        ProductID = item.ProductID,
+                        ShipQuantity = item.Quantity
+                    });
+                }
+
+                // TODO: Check if the order is complete; If so, update Order.Shipped
+
+                // Add
+                context.Shipments.Add(ship);
+
+                // Save
+                context.SaveChanges();
+
             }
             
             throw new NotImplementedException();
