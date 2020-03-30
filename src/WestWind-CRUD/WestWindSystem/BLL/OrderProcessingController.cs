@@ -178,6 +178,27 @@ namespace WestWindSystem.BLL
                     });
                 }
 
+                var quantities = from detail in existingOrder.OrderDetails
+                                 select new ShipmentItemComparison
+                                 {
+                                     ProductID = detail.ProductID,
+                                     ExpectedQuantity = (int)detail.Quantity,
+                                     ShipQuantity = (from sent in detail.Product.ManifestItems
+                                                     where sent.Shipment.OrderID == orderID
+                                                     select (int)sent.ShipQuantity).Sum()
+                                 };
+
+                foreach (var toShip in items)
+                {
+                    quantities.Single(x => x.ProductID == toShip.ProductID).ShipQuantity += (int)toShip.Quantity;
+                }
+
+                if (quantities.All(x => x.ShipQuantity == x.ExpectedQuantity))
+                {
+                    existingOrder.Shipped = true;
+                    context.Entry(existingOrder).Property(x => x.Shipped).IsModified = true;
+                }
+
                 // TODO: Check if the order is complete; If so, update Order.Shipped
 
                 // Add
